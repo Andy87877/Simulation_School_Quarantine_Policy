@@ -9,9 +9,9 @@ by: https://github.com/Andy87877
 import random
 
 def judge():
-    m = 10 # m > 3
+    m = 3 # m > 3
     n = 4 # n > 3
-    have_case = 10
+    have_case = 8
     test = []
     is_case = []
 
@@ -28,8 +28,8 @@ def judge():
                 flag = False
         if (flag):
             is_case.append(temp)
-            test[int(temp%m)][int(temp%n)] = "🟥"
-        #print(is_case)
+            test[int(temp/n)][int(temp%n)] = "🟥"
+    print(sorted(is_case))
 
     for i in range(m): # judge
         for j in range(n):
@@ -70,7 +70,7 @@ def judge():
 
     while (is_case.count(temp) != 0):
         temp = random.randint(0,m*n-1)
-    Sus = test[int(temp%m)][int(temp%n)]
+    Sus = test[int(temp/n)][int(temp%n)]
     if (Sus == "🟨"):
         return True
     else:
@@ -83,7 +83,7 @@ def percent(n,m):
             m=m//i
     return(str(n)+"/"+str(m))
 
-times = 10
+times = 1
 quar = 0
 for i in range(times):
     if (judge()):
