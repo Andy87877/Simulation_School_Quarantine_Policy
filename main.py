@@ -5,13 +5,14 @@ by: https://github.com/Andy87877
 🟩 = No Quarantine
 🟨 = Quarantine
 🟥 = Covid
+🟦 = Is he/she Quarantine?
 '''
 import random
 
 def judge():
-    m = 3 # m > 3
-    n = 4 # n > 3
-    have_case = 8
+    m = 10 # m > 3
+    n = 10 # n > 3
+    have_case = 10
     test = []
     is_case = []
 
@@ -29,9 +30,8 @@ def judge():
         if (flag):
             is_case.append(temp)
             test[int(temp/n)][int(temp%n)] = "🟥"
-    print(sorted(is_case))
-
-    for i in range(m): # judge
+    
+    for i in range(m): # judge 
         for j in range(n):
             if (test[i][j] != "🟥"):
                 if ((i == 0) and (j == 0)):
@@ -62,19 +62,19 @@ def judge():
                     if ((test[i+1][j] == "🟥") or (test[i+1][j+1] == "🟥") or (test[i+1][j-1] == "🟥") or (test[i][j+1] == "🟥") or (test[i][j-1] == "🟥") or (test[i-1][j+1] == "🟥") or (test[i-1][j] == "🟥") or (test[i-1][j-1] == "🟥")):
                         test[i][j] = "🟨"
 
+    # Sus position
+    while (is_case.count(temp) != 0):
+        temp = random.randint(0,m*n-1)
+    if (test[int(temp/n)][int(temp%n)] == "🟨"): flag = True
+    else: flag = False
+    test[int(temp/n)][int(temp%n)] = "🟦"
+
     for i in range(m): # show
         for j in range(n):
             print(test[i][j], end=" ")
         print()
-    print()
 
-    while (is_case.count(temp) != 0):
-        temp = random.randint(0,m*n-1)
-    Sus = test[int(temp/n)][int(temp%n)]
-    if (Sus == "🟨"):
-        return True
-    else:
-        return False
+    return flag
 
 def percent(n,m):
     for i in range(2,n):
@@ -83,7 +83,7 @@ def percent(n,m):
             m=m//i
     return(str(n)+"/"+str(m))
 
-times = 1
+times = 100
 quar = 0
 for i in range(times):
     if (judge()):
